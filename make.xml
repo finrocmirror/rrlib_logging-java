@@ -1,0 +1,5 @@
+<targets>
+  <rrlib>
+    <sources>*.java</sources>
+  </rrlib>
+</targets>
