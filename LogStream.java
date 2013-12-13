@@ -27,11 +27,11 @@ package org.rrlib.logging;
 public class LogStream {
 
     private LogLevel level;
-    private String description;
+    private Object description;
     private LogDomain domain;
     private StringBuilder buffer = new StringBuilder();
 
-    LogStream(LogLevel level, LogDomain domain, String description) {
+    LogStream(LogLevel level, LogDomain domain, Object description) {
         this.level = level;
         this.domain = domain;
         this.description = description;

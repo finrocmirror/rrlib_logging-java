@@ -21,6 +21,9 @@
 //----------------------------------------------------------------------
 package org.rrlib.logging;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
+
 /**
  * This class should be used to output log messages
  */
@@ -57,6 +60,43 @@ public class Log {
         StackTraceElement callFrame = new Throwable().getStackTrace()[1];
         LogDomain domain = LogDomainRegistry.getDomainByQualifiedName(callFrame.getClassName().substring(0, callFrame.getClassName().lastIndexOf('/')));
         domain.log(level, callFrame, callFrame.getClassName().substring(callFrame.getClassName().lastIndexOf('/') + 1), msg, 2);
+    }
+
+    /**
+     * Log message
+     *
+     * TODO: This method looks at the stack trace in order to decide if log message
+     * should be printed. This is kind of expensive.
+     * We might need another more efficient method with more parameters.
+     *
+     * @param level Log level
+     * @param origin Object that log message originates from (can also be a string)
+     * @param msg Log message
+     * @param e Additional exception (if only exception is to be printed, use first method in this class)
+     */
+    public static void log(LogLevel level, Object origin, Object msg, Exception e) {
+        StringWriter stringWriter = new StringWriter();
+        PrintWriter printWriter = new PrintWriter(stringWriter);
+        printWriter.append(msg.toString()).append(e.getMessage()).append(" ");
+        e.printStackTrace(printWriter);
+        printWriter.close();
+        log(level, origin, stringWriter);
+    }
+
+    /**
+     * Get log stream
+     *
+     * TODO: This method looks at the stack trace in order to decide if log message
+     * should be printed. This is kind of expensive.
+     * We might need another more efficient method with more parameters.
+     *
+     * @param level Log level
+     * @param origin Object that log message originates from (can also be a string)
+     */
+    public static LogStream getLogStream(LogLevel level, Object origin) {
+        StackTraceElement callFrame = new Throwable().getStackTrace()[1];
+        LogDomain domain = LogDomainRegistry.getDomainByQualifiedName(callFrame.getClassName().substring(0, callFrame.getClassName().lastIndexOf('/')));
+        return domain.getLogStream(level, origin);
     }
 
 }

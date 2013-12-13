@@ -564,7 +564,7 @@ public class LogDomain {
         return LogDomainRegistry.getInstance().getSubDomain(name, this);
     }
 
-    public LogStream getLogStream(LogLevel level, String description) {
+    public LogStream getLogStream(LogLevel level, Object description) {
         return new LogStream(level, this, description);
     }
 
