@@ -563,7 +563,7 @@ public class LogDomainRegistry {
         LogDomain result = domainForQualifiedNameLookup.get(name);
         if (result == null) {
             synchronized (LogDomain.class) {
-                String[] names = name.split(".");
+                String[] names = name.split("[.]");
                 int index = (names[0].length() == 0) ? 1 : 0;
                 LogDomain current = getDefaultDomain();
                 for (int i = index; i < names.length; i++) {

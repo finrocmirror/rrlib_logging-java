@@ -42,7 +42,7 @@ public class Log {
      */
     public static void log(LogLevel level, Object origin, Object msg) {
         StackTraceElement callFrame = new Throwable().getStackTrace()[1];
-        LogDomain domain = LogDomainRegistry.getDomainByQualifiedName(callFrame.getClassName().substring(0, callFrame.getClassName().lastIndexOf('/')));
+        LogDomain domain = LogDomainRegistry.getDomainByQualifiedName(callFrame.getClassName().substring(0, callFrame.getClassName().lastIndexOf('.')));
         domain.log(level, callFrame, origin, msg, 2);
     }
 
@@ -58,8 +58,8 @@ public class Log {
      */
     public static void log(LogLevel level, Object msg) {
         StackTraceElement callFrame = new Throwable().getStackTrace()[1];
-        LogDomain domain = LogDomainRegistry.getDomainByQualifiedName(callFrame.getClassName().substring(0, callFrame.getClassName().lastIndexOf('/')));
-        domain.log(level, callFrame, callFrame.getClassName().substring(callFrame.getClassName().lastIndexOf('/') + 1), msg, 2);
+        LogDomain domain = LogDomainRegistry.getDomainByQualifiedName(callFrame.getClassName().substring(0, callFrame.getClassName().lastIndexOf('.')));
+        domain.log(level, callFrame, callFrame.getClassName().substring(callFrame.getClassName().lastIndexOf('.') + 1), msg, 2);
     }
 
     /**
@@ -95,7 +95,7 @@ public class Log {
      */
     public static LogStream getLogStream(LogLevel level, Object origin) {
         StackTraceElement callFrame = new Throwable().getStackTrace()[1];
-        LogDomain domain = LogDomainRegistry.getDomainByQualifiedName(callFrame.getClassName().substring(0, callFrame.getClassName().lastIndexOf('/')));
+        LogDomain domain = LogDomainRegistry.getDomainByQualifiedName(callFrame.getClassName().substring(0, callFrame.getClassName().lastIndexOf('.')));
         return domain.getLogStream(level, origin);
     }
 
