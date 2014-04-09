@@ -76,9 +76,11 @@ public class LogDomain {
 
     static {
         boolean coloredOutput = false;
-        try {
-            coloredOutput = LogDomain.class.getResource("LogDomain.class").toString().contains(".jar!");
-        } catch (Exception e) {}
+        if (!System.getProperty("os.name").startsWith("Windows")) {
+            try {
+                coloredOutput = LogDomain.class.getResource("LogDomain.class").toString().contains(".jar!");
+            } catch (Exception e) {}
+        }
         COLORED_CONSOLE_OUTPUT = coloredOutput;
     }
 
